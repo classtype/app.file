@@ -1,0 +1,43 @@
+{
+    "name": "app.file",
+    "version": "1.0.0",
+    "description": "app.file — Это npm-пакет с помощью которого вы можете быстро начать работу с файлами.",
+    "contributors": [
+        {
+            "name": "Sergei",
+            "email": "classtype@mail.ru"
+        }
+    ],
+    "main": "src/app.file.js",
+    "homepage": "http://github.com/classtype/app.file",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/classtype/app.file.git"
+    },
+    "bugs": {
+        "url": "http://github.com/classtype/app.file/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/classtype/app.file/blob/master/LICENSE"
+        }
+    ],
+    "keywords": [
+        "fs",
+        "file",
+        "get",
+        "set",
+        "add",
+        "del",
+        "delete",
+        "save",
+        "read",
+        "npm",
+        "path",
+        "local"
+    ],
+    "dependencies": {
+        "async": "3.2.0"
+    }
+}
