@@ -160,7 +160,7 @@ module.exports = class {
             await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, path.dirname(pathFile)];
+                    throw [101, path.dirname(pathFile) + path.sep];
                 });
                 
         // Проверяем существует-ли файл или каталог с таким именем
@@ -225,7 +225,7 @@ module.exports = class {
             await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, path.dirname(pathFile)];
+                    throw [101, path.dirname(pathFile) + path.sep];
                 });
                 
         // Проверяем существует-ли файл с таким именем
@@ -281,7 +281,7 @@ module.exports = class {
             await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, path.dirname(pathFile)];
+                    throw [101, path.dirname(pathFile) + path.sep];
                 });
                 
         // Проверяем существует-ли файл с таким именем
@@ -343,7 +343,7 @@ module.exports = class {
             await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, path.dirname(pathFile)];
+                    throw [101, path.dirname(pathFile) + path.sep];
                 });
                 
         // Проверяем существует-ли файл с таким именем
