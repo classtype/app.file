@@ -157,10 +157,10 @@ module.exports = class {
     async _add(method, pathFile, content, resolve) {
         try {
         // Проверяем существует-ли каталог в котором мы хотим создать файл
-            await fs.stat(this.pathStorage)
+            await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, this.pathStorage];
+                    throw [101, path.dirname(pathFile)];
                 });
                 
         // Проверяем существует-ли файл или каталог с таким именем
@@ -222,10 +222,10 @@ module.exports = class {
     async _set(method, pathFile, content, resolve) {
         try {
         // Проверяем существует-ли каталог из которого мы хотим получить файл
-            await fs.stat(this.pathStorage)
+            await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, this.pathStorage];
+                    throw [101, path.dirname(pathFile)];
                 });
                 
         // Проверяем существует-ли файл с таким именем
@@ -278,10 +278,10 @@ module.exports = class {
     async _get(method, pathFile, content, resolve) {
         try {
         // Проверяем существует-ли каталог из которого мы хотим получить файл
-            await fs.stat(this.pathStorage)
+            await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, this.pathStorage];
+                    throw [101, path.dirname(pathFile)];
                 });
                 
         // Проверяем существует-ли файл с таким именем
@@ -340,10 +340,10 @@ module.exports = class {
     async _del(method, pathFile, content, resolve) {
         try {
         // Проверяем существует-ли каталог из которого мы хотим получить файл
-            await fs.stat(this.pathStorage)
+            await fs.stat(path.dirname(pathFile))
                 .catch((err) => {
                 // Ошибка 101 — "Каталог не найден!"
-                    throw [101, this.pathStorage];
+                    throw [101, path.dirname(pathFile)];
                 });
                 
         // Проверяем существует-ли файл с таким именем
