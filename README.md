@@ -170,6 +170,42 @@ Storage.del('file1.txt', (res) => {
 //=> Файл успешно удален!
 ```
 
+## Storage.readdir — Чтение каталога
+
+```js
+let res = await Storage.readdir('./example_dir');
+```
+
+#### Пример #5
+
+```js
+const File = require('app.file');
+const Storage = new File('./storage');
+
+Storage.readdir('./example_dir', (res, files) => {
+    if (res.status == 'error') {
+        console.log('Ошибка! '+res.error_msg);
+        return;
+    }
+    files.forEach(file => {
+        if (file.isSymbolicLink()) {
+            console.log('Ссылка | '+ file.name);
+        }
+        if (file.isDirectory()) {
+            console.log('Каталог | '+ file.name);
+        }
+        if (file.isFile()) {
+            console.log('Файл | '+ file.name);
+        }
+    });
+    //=> Файл | file1.txt
+    //=> Файл | file2.txt
+    //=> Файл | file3.txt
+    //=> Каталог | directory1
+    //=> Каталог | directory2
+});
+```
+
 ## Формат — JSON
 
 Формат файлов по умолчанию всегда равен `text`, то есть текстовый файл.
@@ -187,7 +223,7 @@ const Storage = new File('./storage', 'text');
 const Storage = new File('./storage', 'json');
 ```
 
-#### Пример #5
+#### Пример #6
 
 ```js
 const File = require('app.file');

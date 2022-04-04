@@ -25,7 +25,7 @@ module.exports = class {
   ▀──────────────────────────────────────────────────────────────────────────────────────────────▀*/
     constructor(pathStorage = './', format = 'text') {
     // Путь к хранилищу файлов
-        this.pathStorage = path.join(path.dirname(process.mainModule.filename), pathStorage+'');
+        this.pathStorage = path.join(process.mainModule.path, pathStorage+'');
         
     // Формат файлов по умолчанию
         this.format = 'text';
@@ -58,6 +58,9 @@ module.exports = class {
     }
     del(fileName, callback) {
         return this.action('del', fileName, '', callback);
+    }
+    readdir(fileName, callback) {
+        return this.action('readdir', fileName, '', callback);
     }
     action(method, fileName, content, callback) {
     // Создаем путь к файлу
@@ -112,7 +115,7 @@ module.exports = class {
                         // Удаляем задачу из очереди
                             this.tasks[pathFile].splice(0, 1);
                             
-                        // Запускаем метод (add/set/get/del)
+                        // Запускаем метод (add/set/get/del/readdir)
                             this['_'+method](method, pathFile, content, (res) => {
                             // Возвращаем результат через промис
                                 resolve(res);
@@ -373,6 +376,44 @@ module.exports = class {
     
 /*▄──────────────────────────────────────────────────────────────────────────────────────────────▄
   █                                                                                              █
+  █  Чтение каталога                                                                             █
+  █                                                                                              █
+  ▀──────────────────────────────────────────────────────────────────────────────────────────────▀*/
+    async _readdir(method, pathCurrent, content, resolve) {
+        try {
+        // Проверяем существует-ли каталог который мы хотим прочитать
+            await fs.stat(pathCurrent)
+                .then(stats => {
+                // Это не каталог, а например файл
+                    if (!stats.isDirectory()) {
+                    // Ошибка 101 — "Каталог не найден!"
+                        throw [101, pathCurrent + path.sep];
+                    }
+                })
+                .catch((err) => {
+                // Ошибка 101 — "Каталог не найден!"
+                    throw [101, pathCurrent + path.sep];
+                });
+                
+        // Читаем каталог
+            let content = await fs.readdir(pathCurrent, {encoding:'utf8', withFileTypes:true})
+                .catch((err) => {
+                // Ошибка 100 — "Неизвестная ошибка!"
+                    throw [100, pathCurrent + path.sep];
+                });
+                
+        // Создаем результат
+            throw ['good', content, pathCurrent];
+        }
+        
+    // Возвращаем результат
+        catch (res) {
+            return this.result(method, res, resolve);
+        }
+    }
+    
+/*▄──────────────────────────────────────────────────────────────────────────────────────────────▄
+  █                                                                                              █
   █  Создает результат через промис                                                              █
   █                                                                                              █
   ▀──────────────────────────────────────────────────────────────────────────────────────────────▀*/
@@ -402,6 +443,11 @@ module.exports = class {
         // Удаление файла
             if (method == 'del') {
                 res = {status:'good', path:res[1]};
+            }
+            
+        // Чтение каталога
+            if (method == 'readdir') {
+                res = {status:'good', content:res[1], path:res[2]};
             }
         }
         

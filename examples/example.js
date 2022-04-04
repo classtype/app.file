@@ -36,6 +36,12 @@ let res;
   └────────────────┘*/
     res = await Storage.del('file1.txt');
     console.log(res);
+    
+/*┌─────────────────┐
+  │ Чтение каталога │
+  └─────────────────┘*/
+    res = await Storage.readdir('.');
+    console.log(res);
 })();
 
 /*▄──────────────────────────────────────────────────────────────────────────────────────────────▄
@@ -69,6 +75,13 @@ Storage.get('file1.txt', (res, content) => {
   │ Удаление файла │
   └────────────────┘*/
 Storage.del('file1.txt', (res) => {
+    console.log(res);
+});
+
+/*┌─────────────────┐
+  │ Чтение каталога │
+  └─────────────────┘*/
+Storage.readdir('.', (res) => {
     console.log(res);
 });
 
