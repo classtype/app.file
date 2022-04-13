@@ -1,11 +1,10 @@
 {
     "name": "app.file",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "app.file — Это npm-пакет с помощью которого вы можете быстро начать работу с файлами.",
     "contributors": [
         {
-            "name": "Sergei",
-            "email": "classtype@mail.ru"
+            "name": "Sergei"
         }
     ],
     "main": "src/app.file.js",

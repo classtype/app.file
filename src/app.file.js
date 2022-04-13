@@ -188,7 +188,17 @@ module.exports = class {
                 
         // Формат файлов "json"
             if (this.format == 'json') {
+            // Переводим в строку
                 content = JSON.stringify(content);
+                
+            // Пробуем обратно перевести в json
+                try {
+                    JSON.parse(content);
+                }
+                catch (e) {
+                // Ошибка 105 — "Файл содержит не правильный JSON!"
+                    throw [105, pathFile];
+                }
             }
             
         // Создаем файл
@@ -243,7 +253,17 @@ module.exports = class {
                 
         // Формат файлов "json"
             if (this.format == 'json') {
+            // Переводим в строку
                 content = JSON.stringify(content);
+                
+            // Пробуем обратно перевести в json
+                try {
+                    JSON.parse(content);
+                }
+                catch (e) {
+                // Ошибка 105 — "Файл содержит не правильный JSON!"
+                    throw [105, pathFile];
+                }
             }
             
         // Записываем данные
